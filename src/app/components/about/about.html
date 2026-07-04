@@ -1,14 +1,14 @@
 <section id="about" class="py-24 px-4 md:px-8 bg-slate-900/40 relative">
   <div class="max-w-6xl mx-auto">
     <!-- Section Header -->
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 reveal-left">
       <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">About Me</h2>
       <div class="h-1.5 w-20 bg-indigo-500 rounded-full mx-auto"></div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <!-- Profile Card Illustration -->
-      <div class="lg:col-span-5 flex justify-center">
+      <div class="lg:col-span-5 flex justify-center reveal-left">
         <div class="relative group max-w-sm w-full">
           <!-- Animated border glow -->
           <div
@@ -19,16 +19,20 @@
           <div class="relative px-8 py-10 glass-card rounded-2xl text-center">
             <!-- Profile Image -->
             <div class="relative w-32 h-32 mx-auto mb-6">
-              <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-sm opacity-40"></div>
+              <div
+                class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-sm opacity-40"
+              ></div>
               @if (!imageError()) {
-                <img 
-                  src="assets/images/Rajesh.png" 
-                  alt="Rajesh Badhe" 
+                <img
+                  src="assets/images/Rajesh.png"
+                  alt="Rajesh Badhe"
                   (error)="imageError.set(true)"
                   class="relative w-32 h-32 rounded-full object-cover border-2 border-indigo-500/30 shadow-lg shadow-indigo-500/25"
-                >
+                />
               } @else {
-                <div class="relative w-32 h-32 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg shadow-indigo-500/25 border-2 border-indigo-500/30">
+                <div
+                  class="relative w-32 h-32 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg shadow-indigo-500/25 border-2 border-indigo-500/30"
+                >
                   RB
                 </div>
               }
@@ -100,17 +104,21 @@
       </div>
 
       <!-- Professional Bio and Info -->
-      <div class="lg:col-span-7 space-y-8">
-        <h3 class="text-2xl md:text-3xl font-bold text-white leading-snug">
-          Hi, I'm Rajesh Badhe
-        </h3>
+      <div class="lg:col-span-7 space-y-8 reveal-right">
+        <h3 class="text-2xl md:text-3xl font-bold text-white leading-snug">Hi, I'm Rajesh Badhe</h3>
 
         <p class="text-slate-300 leading-relaxed text-lg">
-          I am an Angular Frontend Developer with experience in building modern, responsive, and scalable web applications. Skilled in Angular, TypeScript, JavaScript, REST API integration, Node.js (Fastify), and SQL.
+          I am an Angular Frontend Developer with experience in building modern, responsive, and
+          scalable web applications. Proficient in Angular, TypeScript, JavaScript, REST API
+          integration, Node.js (Fastify), and SQL. Passionate about creating clean, user-friendly
+          interfaces and writing maintainable, high-quality code while continuously learning new
+          technologies and best practices.
         </p>
 
         <p class="text-slate-300 leading-relaxed text-lg">
-          I have contributed to enterprise projects including Vendor Management System (VMS), Productivity Tracker, Health Camp Management System, and Task Management System, with a strong focus on delivering high-quality user experiences and maintainable code.
+          I have contributed to enterprise projects including Vendor Management System (VMS),
+          Productivity Tracker, Health Camp Management System, and Task Management System, with a
+          strong focus on delivering high-quality user experiences and maintainable code.
         </p>
 
         <!-- Quick Stats (with glass-card style) -->

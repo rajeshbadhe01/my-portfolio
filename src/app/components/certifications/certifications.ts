@@ -5,6 +5,7 @@ interface Certification {
   title: string;
   issuer: string;
   date: string;
+  description?: string;
   credentialUrl?: string;
 }
 
@@ -18,28 +19,25 @@ interface Certification {
 export class Certifications {
   certifications: Certification[] = [
     {
-      title: 'AWS Certified Solutions Architect – Associate',
-      issuer: 'Amazon Web Services (AWS)',
-      date: 'Dec 2023',
-      credentialUrl: 'https://aws.amazon.com/verification',
+      title: 'Angular Basics',
+      issuer: 'Simplilearn SkillUp',
+      date: 'Jun 2025',
+      description: 'Comprehensive Angular development program covering components, routing, RxJS, REST API integration, and best practices.',
+      credentialUrl: 'https://www.simplilearn.com/skillup-free-online-courses',
     },
     {
-      title: 'Angular Advanced Architect & Masterclass',
-      issuer: 'Udemy / Pluralsight Academy',
-      date: 'Jun 2024',
-      credentialUrl: 'https://udemy.com/certificate',
+      title: 'JavaScript Essentials',
+      issuer: 'Simplilearn SkillUp',
+      date: 'Apr 2025',
+      description: 'Advanced JavaScript program focusing on ES6+, DOM manipulation, asynchronous programming, Promises, closures, and modular design.',
+      credentialUrl: 'https://www.simplilearn.com/skillup-free-online-courses',
     },
     {
-      title: 'Node.js Certified Application Developer',
-      issuer: 'OpenJS Foundation',
-      date: 'Oct 2023',
-      credentialUrl: 'https://openjsf.org',
-    },
-    {
-      title: 'Full Stack Web Development Certification',
-      issuer: 'freeCodeCamp.org',
-      date: 'Aug 2021',
-      credentialUrl: 'https://freecodecamp.org/certification',
+      title: 'Node.js Developer',
+      issuer: 'Simplilearn SkillUp',
+      date: 'May 2025',
+      description: 'Backend program covering server architecture, REST API design, Node.js runtime, Fastify/Express routing, and SQL database integration.',
+      credentialUrl: 'https://www.simplilearn.com/skillup-free-online-courses',
     },
   ];
 }

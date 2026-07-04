@@ -33,6 +33,137 @@
   }
 }
 
+/* Color Theme Definitions */
+:root {
+  --bg-primary: #f1f5f9;        /* soft cool gray */
+  --bg-secondary: #ffffff;      /* pure white */
+  --text-primary: #0f172a;      /* slate-900 */
+  --text-secondary: #334155;    /* slate-700 */
+  --text-muted: #64748b;        /* slate-500 */
+  --border-color: #e2e8f0;      /* slate-200 */
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(99, 102, 241, 0.08);
+  --card-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.04);
+  --input-bg: #f8fafc;
+  --input-focus-bg: #ffffff;
+  --pill-bg: #e2e8f0;           /* slate-200 */
+  --pill-text: #0f172a;         /* slate-900 */
+}
+
+.dark {
+  --bg-primary: #020617;        /* slate-950 */
+  --bg-secondary: #0f172a;      /* slate-900 */
+  --text-primary: #f8fafc;      /* slate-50 */
+  --text-secondary: #cbd5e1;    /* slate-300 */
+  --text-muted: #94a3b8;        /* slate-400 */
+  --border-color: #1e293b;      /* slate-800 */
+  --card-bg: rgba(15, 23, 42, 0.45);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+  --input-bg: #0f172a;
+  --input-focus-bg: #020617;
+  --pill-bg: #1e293b;           /* slate-800 */
+  --pill-text: #cbd5e1;         /* slate-300 */
+}
+
+/* Global utility overrides for light/dark theme mapping */
+body, .bg-slate-950 {
+  background-color: var(--bg-primary) !important;
+}
+aside, footer, header, nav, .bg-slate-900\/40, .bg-slate-950\/60, .bg-slate-950\/40 {
+  background-color: var(--bg-secondary) !important;
+}
+.text-white, .text-slate-100 {
+  color: var(--text-primary) !important;
+}
+.text-slate-300, .text-slate-350, .text-slate-355 {
+  color: var(--text-secondary) !important;
+}
+.text-slate-400, .text-slate-500 {
+  color: var(--text-muted) !important;
+}
+.border-slate-800, .border-slate-900, .border-slate-800\/80, .border-slate-900\/60 {
+  border-color: var(--border-color) !important;
+}
+input, textarea, select {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+input:focus, textarea:focus, select:focus {
+  background-color: var(--input-focus-bg) !important;
+  border-color: #6366f1 !important;
+}
+
+/* Badge/pill overrides for theme consistency */
+.bg-slate-900, 
+.bg-slate-800, 
+.bg-slate-800\/80, 
+.bg-slate-950\/60, 
+.bg-slate-900\/50, 
+.bg-slate-900\/60, 
+.bg-slate-800\/50 {
+  background-color: var(--pill-bg) !important;
+  color: var(--pill-text) !important;
+  border-color: var(--border-color) !important;
+}
+
+.bg-slate-900 .text-slate-300, 
+.bg-slate-900 .text-slate-350,
+.bg-slate-900 .text-slate-400, 
+.bg-slate-800 .text-slate-300, 
+.bg-slate-800 .text-slate-350,
+.bg-slate-800 .text-slate-400, 
+.bg-slate-800\/80 .text-slate-300,
+.bg-slate-800\/80 .text-slate-350,
+.bg-slate-800\/80 .text-slate-400,
+.bg-slate-900 .text-slate-100,
+.bg-slate-800 .text-slate-100 {
+  color: var(--pill-text) !important;
+}
+
+/* Custom Navigation Link Styling */
+.nav-link {
+  color: var(--text-muted) !important;
+  background: transparent;
+  border-color: transparent;
+  transition: all 0.25s ease;
+}
+.nav-link:hover {
+  color: #6366f1 !important;
+  background-color: rgba(99, 102, 241, 0.05) !important;
+}
+.nav-link.active {
+  color: #6366f1 !important;
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Mobile Nav Link */
+.mob-nav-link {
+  color: var(--text-muted) !important;
+  transition: color 0.25s ease;
+}
+.mob-nav-link.active {
+  color: #6366f1 !important;
+}
+
+/* Gradient text overrides for Light Mode contrast */
+.from-indigo-400 {
+  --tw-gradient-from: #6366f1 !important; /* Indigo-500 */
+}
+.to-purple-400 {
+  --tw-gradient-to: #a855f7 !important; /* Purple-500 */
+}
+
+/* Restore neon gradients in Dark Mode */
+.dark .from-indigo-400 {
+  --tw-gradient-from: #818cf8 !important; /* Indigo-400 */
+}
+.dark .to-purple-400 {
+  --tw-gradient-to: #c084fc !important; /* Purple-400 */
+}
+
 /* Custom scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -40,8 +171,9 @@ html {
 
 /* Glassmorphism utility card styling */
 .glass-card {
-  background: rgba(15, 23, 42, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -60,17 +192,23 @@ html {
   }
 }
 
-/* Scroll Reveal Animations */
+/* Scroll Reveal Animations - Bulletproof Fallback System */
 .reveal {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
+/* Only hide off-screen elements when JS is ready and they aren't visible yet */
+body.js-ready .reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 .reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Staggered Delay Helpers */
@@ -89,4 +227,48 @@ html {
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Pulsing status dot animation */
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+}
+
+.status-dot {
+  animation: status-pulse 2s infinite ease-in-out;
+}
+
+/* Stylish glowing button hover effect with shimmer swipe */
+.stylish-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.stylish-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: 0.6s ease;
+}
+
+.stylish-badge:hover::after {
+  left: 100%;
 }

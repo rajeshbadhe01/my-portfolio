@@ -1,4 +1,4 @@
-import { Component, HostListener, signal, AfterViewInit, Inject, PLATFORM_ID, effect } from '@angular/core';
+import { Component, HostListener, signal, AfterViewInit, OnInit, Inject, PLATFORM_ID, effect } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 // Section Components
@@ -35,50 +35,109 @@ interface NavItem {
   templateUrl: './app.component.html',
   styleUrls: []
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   title = 'Portfolio';
   currentYear = new Date().getFullYear();
+  isDarkMode = signal<boolean>(true);
+  isLoading = signal<boolean>(true);
+  preloaderFadeOut = signal<boolean>(false);
+  preloaderDestroyed = signal<boolean>(false);
+  loadingPercent = signal<number>(0);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    // Scroll active mobile nav item into view when it changes
-    effect(() => {
-      const activeId = this.activeSection();
-      if (isPlatformBrowser(this.platformId)) {
-        setTimeout(() => {
-          const activeEl = document.getElementById('mob-nav-' + activeId);
-          const navContainer = document.getElementById('mobile-bottom-nav');
-          if (activeEl && navContainer) {
-            const containerWidth = navContainer.clientWidth;
-            const elementLeft = activeEl.offsetLeft;
-            const elementWidth = activeEl.clientWidth;
-            const scrollLeftPos = elementLeft - (containerWidth / 2) + (elementWidth / 2);
-            
-            navContainer.scrollTo({
-              left: scrollLeftPos,
-              behavior: 'smooth'
-            });
-          }
-        }, 100);
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        this.isDarkMode.set(savedTheme === 'dark');
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        this.isDarkMode.set(prefersDark);
       }
-    });
+      this.updateThemeClass();
+    }
+    this.runPreloader();
   }
+
+  runPreloader() {
+    if (isPlatformBrowser(this.platformId)) {
+      const interval = setInterval(() => {
+        const current = this.loadingPercent();
+        if (current >= 100) {
+          clearInterval(interval);
+          this.preloaderFadeOut.set(true);
+          setTimeout(() => {
+            this.preloaderDestroyed.set(true);
+            this.isLoading.set(false);
+          }, 700); // 700ms matches CSS transition-all duration-700
+        } else {
+          // Organically increment the loading progress at a slightly slower pace
+          const next = Math.min(100, current + Math.floor(Math.random() * 4) + 2);
+          this.loadingPercent.set(next);
+        }
+      }, 85);
+    } else {
+      this.loadingPercent.set(100);
+      this.preloaderFadeOut.set(true);
+      this.preloaderDestroyed.set(true);
+      this.isLoading.set(false);
+    }
+  }
+
+  toggleTheme() {
+    this.isDarkMode.set(!this.isDarkMode());
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
+      this.updateThemeClass();
+    }
+  }
+
+  updateThemeClass() {
+    if (isPlatformBrowser(this.platformId)) {
+      const root = document.documentElement;
+      if (this.isDarkMode()) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+  }
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
+        const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        
+        // 1. Immediately flag any elements already inside the viewport as visible
+        elements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const isInViewport = rect.top < window.innerHeight && rect.bottom >= 0;
+          if (isInViewport) {
+            el.classList.add('is-visible');
+          }
+        });
+
+        // 2. Mark body as js-ready, which safely hides only the off-screen elements
+        document.body.classList.add('js-ready');
+
+        // 3. Set up the observer for the remaining offscreen elements with a low threshold for mobile safety
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
             }
           });
         }, {
-          threshold: 0.05,
-          rootMargin: '0px 0px -50px 0px'
+          threshold: 0.01
         });
 
-        const elements = document.querySelectorAll('.reveal');
-        elements.forEach((el) => observer.observe(el));
+        elements.forEach((el) => {
+          if (!el.classList.contains('is-visible')) {
+            observer.observe(el);
+          }
+        });
       }, 150);
     }
   }
@@ -104,6 +163,17 @@ export class AppComponent implements AfterViewInit {
 
   closeMobileMenu() {
     this.mobileMenuOpen.set(false);
+  }
+
+  getHighlightedSection(): string {
+    const current = this.activeSection();
+    if (current === 'home') return 'home';
+    if (current === 'about') return 'about';
+    if (current === 'skills') return 'skills';
+    if (current === 'experience') return 'experience';
+    if (current === 'projects' || current === 'education' || current === 'certifications' || current === 'resume') return 'projects';
+    if (current === 'contact') return 'contact';
+    return 'home';
   }
 
   @HostListener('window:scroll', [])
