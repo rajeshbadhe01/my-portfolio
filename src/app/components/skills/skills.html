@@ -1,0 +1,45 @@
+<section id="skills" class="py-24 px-4 md:px-8 relative">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Tech Stack</h2>
+      <div class="h-1.5 w-20 bg-indigo-500 rounded-full mx-auto"></div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+      @for (category of categories; track category.title; let idx = $index) {
+        <div 
+          class="reveal p-8 bg-slate-950/40 border border-slate-800 rounded-2xl backdrop-blur-md hover:border-slate-700/60 transition-all duration-300"
+          [ngClass]="'delay-' + (idx === 0 ? '100' : idx === 1 ? '200' : idx === 2 ? '300' : '400')"
+        >
+          <!-- Category Header -->
+          <div class="flex items-center gap-4 mb-8">
+            <div class="p-3 bg-indigo-500/10 rounded-xl text-indigo-400 border border-indigo-500/10" [innerHTML]="category.icon">
+            </div>
+            <h3 class="text-xl font-bold text-white">{{ category.title }}</h3>
+          </div>
+
+          <!-- Skill Items -->
+          <div class="space-y-6">
+            @for (skill of category.skills; track skill.name) {
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-medium text-slate-350">{{ skill.name }}</span>
+                  <span class="text-sm font-semibold text-indigo-400">{{ skill.level }}%</span>
+                </div>
+                <!-- Progress Bar -->
+                <div class="h-2 w-full bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000 ease-out" 
+                    [style.width.%]="skill.level"
+                  ></div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+<section id="about" class="py-24 px-4 md:px-8 bg-slate-900/40 relative">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">About Me</h2>
+      <div class="h-1.5 w-20 bg-indigo-500 rounded-full mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Profile Card Illustration -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative group max-w-sm w-full">
+          <!-- Animated border glow -->
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"
+          ></div>
+
+          <!-- Content Card (glass-card style) -->
+          <div class="relative px-8 py-10 glass-card rounded-2xl text-center">
+            <!-- Profile Image -->
+            <div class="relative w-32 h-32 mx-auto mb-6">
+              <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-sm opacity-40"></div>
+              @if (!imageError()) {
+                <img 
+                  src="assets/images/Rajesh.png" 
+                  alt="Rajesh Badhe" 
+                  (error)="imageError.set(true)"
+                  class="relative w-32 h-32 rounded-full object-cover border-2 border-indigo-500/30 shadow-lg shadow-indigo-500/25"
+                >
+              } @else {
+                <div class="relative w-32 h-32 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg shadow-indigo-500/25 border-2 border-indigo-500/30">
+                  RB
+                </div>
+              }
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-1">Rajesh Badhe</h3>
+            <p class="text-indigo-400 font-medium mb-6">Full Stack Developer</p>
+
+            <div
+              class="space-y-3 text-left text-sm text-slate-350 border-t border-slate-800/80 pt-6"
+            >
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-indigo-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span>Sangamner, Maharashtra, India</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-indigo-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+
+                <span>rajeshbadhe66&#64;gmail.com</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-indigo-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>Full-Time / Remote</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Bio and Info -->
+      <div class="lg:col-span-7 space-y-8">
+        <h3 class="text-2xl md:text-3xl font-bold text-white leading-snug">
+          Hi, I'm Rajesh Badhe
+        </h3>
+
+        <p class="text-slate-300 leading-relaxed text-lg">
+          I am an Angular Frontend Developer with experience in building modern, responsive, and scalable web applications. Skilled in Angular, TypeScript, JavaScript, REST API integration, Node.js (Fastify), and SQL.
+        </p>
+
+        <p class="text-slate-300 leading-relaxed text-lg">
+          I have contributed to enterprise projects including Vendor Management System (VMS), Productivity Tracker, Health Camp Management System, and Task Management System, with a strong focus on delivering high-quality user experiences and maintainable code.
+        </p>
+
+        <!-- Quick Stats (with glass-card style) -->
+        <div class="grid grid-cols-2 gap-4 pt-4">
+          <div class="p-5 glass-card text-center">
+            <span class="block text-3xl md:text-4xl font-extrabold text-indigo-400 mb-1">1+</span>
+            <span class="text-xs md:text-sm font-semibold text-slate-400 uppercase tracking-wider"
+              >Years Exp</span
+            >
+          </div>
+          <div class="p-5 glass-card text-center">
+            <span class="block text-3xl md:text-4xl font-extrabold text-purple-400 mb-1">6+</span>
+            <span class="text-xs md:text-sm font-semibold text-slate-400 uppercase tracking-wider"
+              >Projects</span
+            >
+          </div>
+          <!-- <div class="p-5 glass-card text-center">
+            <span class="block text-3xl md:text-4xl font-extrabold text-pink-400 mb-1">10+</span>
+            <span class="text-xs md:text-sm font-semibold text-slate-400 uppercase tracking-wider"
+              >Certificates</span
+            >
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
