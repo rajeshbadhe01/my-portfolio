@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
+<div class="min-h-screen w-full overflow-x-hidden bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
 
   <!-- Preloader Screen (matched to current theme) -->
   @if (!preloaderDestroyed()) {
@@ -18,7 +18,7 @@
       </div>
 
       <!-- Loading Progress bar (Wider & Bold) -->
-      <div class="w-80 space-y-4">
+      <div class="w-full max-w-xs px-6 space-y-4">
         <div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
           <span [ngClass]="isDarkMode() ? 'text-slate-400' : 'text-slate-500'">Loading Portfolio</span>
           <span class="text-indigo-500 font-extrabold text-sm">{{ loadingPercent() }}%</span>
@@ -171,6 +171,39 @@
       </div>
     </footer>
     
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div class="fixed bottom-5 right-5 z-[100000] flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4">
+    @for (toast of toastService.toasts(); track toast.id) {
+      <div 
+        class="pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-xl border shadow-xl backdrop-blur-md animate-fade-in-up transition-all duration-300"
+        [ngClass]="{
+          'bg-emerald-500/10 border-emerald-500/20 text-emerald-400': toast.type === 'success',
+          'bg-rose-500/10 border-rose-500/20 text-rose-400': toast.type === 'error',
+          'bg-indigo-500/10 border-indigo-500/20 text-indigo-400': toast.type === 'info'
+        }"
+      >
+        <!-- Icon -->
+        @if (toast.type === 'success') {
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        } @else if (toast.type === 'error') {
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        } @else {
+          <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        }
+        
+        <span class="text-sm font-semibold flex-grow leading-snug">{{ toast.message }}</span>
+        
+        <!-- Close Button -->
+        <button 
+          (click)="toastService.remove(toast.id)" 
+          class="text-slate-400 hover:text-white transition cursor-pointer p-0.5 rounded-lg hover:bg-white/5 outline-none"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    }
   </div>
 
   <!-- Custom Cursor Elements (Desktop only) -->

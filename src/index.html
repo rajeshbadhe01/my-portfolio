@@ -9,5 +9,20 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    // Fail-safe preloader safety net: auto-dismiss preloader if loading stalls
+    setTimeout(function() {
+      var preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.style.opacity = '0';
+        preloader.style.pointerEvents = 'none';
+        setTimeout(function() {
+          if (preloader.parentNode) {
+            preloader.parentNode.removeChild(preloader);
+          }
+        }, 700);
+      }
+    }, 4000);
+  </script>
 </body>
 </html>

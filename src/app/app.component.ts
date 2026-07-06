@@ -1,5 +1,6 @@
-import { Component, HostListener, signal, AfterViewInit, OnInit, Inject, PLATFORM_ID, effect } from '@angular/core';
+import { Component, HostListener, signal, AfterViewInit, OnInit, Inject, PLATFORM_ID, effect, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ToastService } from './shared/services/toast.service';
 
 // Section Components
 import { Home } from './components/home/home';
@@ -36,6 +37,7 @@ interface NavItem {
   styleUrls: []
 })
 export class AppComponent implements AfterViewInit, OnInit {
+  toastService = inject(ToastService);
   title = 'Portfolio';
   currentYear = new Date().getFullYear();
   isDarkMode = signal<boolean>(true);
@@ -46,10 +48,15 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        this.isDarkMode.set(savedTheme === 'dark');
-      } else {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+          this.isDarkMode.set(savedTheme === 'dark');
+        } else {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          this.isDarkMode.set(prefersDark);
+        }
+      } catch (e) {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         this.isDarkMode.set(prefersDark);
       }
@@ -86,7 +93,11 @@ export class AppComponent implements AfterViewInit, OnInit {
   toggleTheme() {
     this.isDarkMode.set(!this.isDarkMode());
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
+      try {
+        localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
+      } catch (e) {
+        // Ignore storage exceptions
+      }
       this.updateThemeClass();
     }
   }

@@ -33,6 +33,15 @@
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
 /* Color Theme Definitions */
 :root {
   --bg-primary: #f1f5f9;        /* soft cool gray */
@@ -193,22 +202,36 @@ html {
 }
 
 /* Scroll Reveal Animations - Bulletproof Fallback System */
-.reveal {
+.reveal,
+.reveal-left,
+.reveal-right {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translate(0, 0);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 /* Only hide off-screen elements when JS is ready and they aren't visible yet */
 body.js-ready .reveal:not(.is-visible) {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
 }
 
-.reveal.is-visible {
+body.js-ready .reveal-left:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+body.js-ready .reveal-right:not(.is-visible) {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.reveal.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: translate(0, 0) !important;
 }
 
 /* Staggered Delay Helpers */
