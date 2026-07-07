@@ -82,11 +82,6 @@ export class AppComponent implements AfterViewInit, OnInit {
           this.loadingPercent.set(next);
         }
       }, 85);
-    } else {
-      this.loadingPercent.set(100);
-      this.preloaderFadeOut.set(true);
-      this.preloaderDestroyed.set(true);
-      this.isLoading.set(false);
     }
   }
 
